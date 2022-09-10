@@ -26,6 +26,12 @@
         }
       }
     },
+    "type-check": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p apps/operation/tsconfig.app.json"
+      }
+    },
     "serve": {
       "executor": "@nrwl/node:node",
       "options": {

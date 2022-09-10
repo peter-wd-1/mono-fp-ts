@@ -23,8 +23,29 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
+      "parserOptions": {
+        "project": ["tsconfig.*?.json"]
+      },
       "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {}
+      "rules": {
+        "semi": "off",
+        "comma-dangle": [
+          "error",
+          {
+            "arrays": "always-multiline",
+            "objects": "always-multiline",
+            "imports": "always-multiline",
+            "exports": "always-multiline",
+            "functions": "always-multiline"
+          }
+        ],
+        "no-console": "warn",
+        "camelcase": "off",
+        "no-warning-comments": "warn",
+        "no-unused-vars": "warn",
+        "@typescript-eslint/await-thenable": "error",
+        "@typescript-eslint/no-unused-vars": ["warn", { "ignoreRestSiblings": true }]
+      }
     },
     {
       "files": ["*.js", "*.jsx"],
