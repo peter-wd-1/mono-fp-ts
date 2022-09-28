@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  operation:
+    image: rfiready.co:5000/operation:prod
+    build:
+      context: ../../
+      dockerfile: ./services/operation/docker/Dockerfile
+      args:
+        NODE_ENV: prod
+        SERVICE_NAME: operation
+        PORT: 3333
+    working_dir: /service/operation
+    deploy:
+      replicas: 2
+      restart_policy:
+        delay: 10s
+        condition: on-failure
+        max_attempts: 3
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: stop-first
+        failure_action: rollback
+    ports:
+      - 3333:3333
+    networks:
+      - api-service
+    volumes:
+      - type: volume
+        source: operationlog
+        target: /service/operation/log
+        volume:
+          nocopy: true
+
+networks:
+  api-service:
+    external: true
+volumes:
+  operationlog:
+    driver_opts:
+      type: nfs4
+      o: "addr=172.31.84.217,nolock,rw"
+      device: ":/root/nfs/operation/log"

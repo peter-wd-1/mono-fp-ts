@@ -1,0 +1,75 @@
+{
+  "root": "services/operation",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "services/operation/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/services/operation",
+        "main": "services/operation/src/main.ts",
+        "tsConfig": "services/operation/tsconfig.app.json",
+        "assets": [
+          "services/operation/src/assets"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "services/operation/src/environments/environment.ts",
+              "with": "services/operation/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:node",
+      "options": {
+        "buildTarget": "operation:build",
+        "watch": true
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "operation:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "services/operation/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/services/operation"
+      ],
+      "options": {
+        "jestConfig": "services/operation/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "type-check": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p services/operation/tsconfig.json"
+      }
+    }
+  },
+  "tags": []
+}
