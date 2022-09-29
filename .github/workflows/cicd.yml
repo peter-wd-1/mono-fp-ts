@@ -1,0 +1,16 @@
+name: RFIReady CICD
+on:
+  push
+
+
+jobs:
+  TEST:
+    runs-on: ubuntu-latest
+    env:
+      COMMIT_MSG: ${{ github.event.head_commit.message }}${{ github.event.pull_request.title }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: testing
+        run: |
+          echo testing $COMMIT_MSG

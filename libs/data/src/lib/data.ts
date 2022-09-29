@@ -1,3 +1,3 @@
-export function data(): string {
-  return 'data'
+export interface Data {
+  test: string
 }

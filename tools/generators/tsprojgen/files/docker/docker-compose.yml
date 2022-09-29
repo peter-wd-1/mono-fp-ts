@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  ${SERVICE_NAME}:
+    image: rfiready.co:5000/${SERVICE_NAME}:${DEPLOY_ENV}
+    build:
+      context: ../../../
+      dockerfile: ./${PROJECT_ROOT}/docker/Dockerfile
+      args:
+        NODE_ENV: ${DEPLOY_ENV}
+        SERVICE_NAME: ${SERVICE_NAME}
+        PORT: ${PORT}
+    working_dir: /app
+    deploy:
+      replicas: 2
+      restart_policy:
+        delay: 10s
+        condition: on-failure
+        max_attempts: 3
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: stop-first
+        failure_action: rollback
+    ports:
+      - ${PORT}:${PORT}
+    networks:
+      - api-service
+    volumes:
+      - type: volume
+        source: ${SERVICE_NAME}log
+        target: /service/${SERVICE_NAME}/log
+        volume:
+          nocopy: true
+
+networks:
+  api-service:
+    external: true
+volumes:
+  ${SERVICE_NAME}log:
+    driver_opts:
+      type: nfs4
+      o: "addr=172.31.84.217,nolock,rw"
+      device: ":/root/nfs/${SERVICE_NAME}/log"

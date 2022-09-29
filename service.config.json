@@ -1,0 +1,22 @@
+[
+  {
+    "SERVICE_NAME": "authapi",
+    "PORT": "3005"
+  },
+  {
+    "SERVICE_NAME": "apiproxy",
+    "PORT": "3002"
+  },
+  {
+    "SERVICE_NAME": "sales",
+    "PORT": "3006"
+  },
+  {
+    "SERVICE_NAME": "cms",
+    "PORT": "3004"
+  },
+  {
+    "PORT": "3333",
+    "SERVICE_NAME": "operation"
+  }
+]

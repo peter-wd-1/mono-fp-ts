@@ -26,6 +26,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "paths": {
+      "@rfiready/core": ["libs/core/src/index.ts"],
       "@rfiready/data": ["libs/data/src/index.ts"]
     }
   },

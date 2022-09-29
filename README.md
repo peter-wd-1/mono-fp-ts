@@ -1,50 +1,56 @@
-
-
 # Rfiready
 
-This project was generated using [Nx](https://nx.dev).
+## Features 
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+- Add Command `type-check` for ts project. 
+- Add docker folder and its files to project
+- Husky for conventional commit + service deployment from commit
 
-🔎 **Smart, Fast and Extensible Build System**
+## Workflow
 
-## Adding capabilities to your workspace
+Consider our new developer trying to create an new service. This would be complete process from creation to deployment on production. 
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+### Initialize 
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+1. Pull repository
+2. Create feature branch
+3. Create service with name & port : will generate command and docker folder 
 
-Below are our core plugins:
+### Development
 
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
+4. Start development infrastructure
+   will start run-command | execute nx executor
+   will check current service project from `workspace.json` and ask which to run 
+   you can check all the services that will be running on docker | 
+   then this will docker up every docker-compose in the check projects.
+   dockerfile dev has volume connected to its src so if you changes code it can still watch the changes
+5. Start to watch : executes whenever file changes
+   - dev server 
+   - linter
+   - unit test
+   
+### Deployment
 
-There are also many [community plugins](https://nx.dev/community) you could add.
+6. Use CZ semantic for version control 
+7. Use affected:commit if you want to deploy all the changes. 
+   this will trigger affected:deploy command and this will find affected project and build docker image.
+   to push to the registry 
+   this will be done on marge pull request in github action.
+   when ever you deploy the changes on production. 
+   this will trigger bump of the version and release it on git   hub with change logs.
+   
+
+## Generate an docker folder and ts-command
+
+Run `yarn nx workspace-generator tsprojgen <folder name> --service <service name> --port <port number>`
 
 ## Generate an application
 
 Run `nx g @nrwl/react:app my-app` to generate an application.
 
-> You can use any of the plugins above to generate applications as well.
-
-When using Nx, you can create multiple applications and libraries in the same workspace.
-
 ## Generate a library
 
 Run `nx g @nrwl/react:lib my-lib` to generate a library.
-
-> You can also use any of the plugins above to generate libraries as well.
-
 Libraries are shareable across libraries and applications. They can be imported from `@rfiready/mylib`.
 
 ## Development server
@@ -74,21 +80,3 @@ Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
 ## Understand your workspace
 
 Run `nx graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev) to learn more.
-
-
-
-## ☁ Nx Cloud
-
-### Distributed Computation Caching & Distributed Task Execution
-
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
