@@ -23,4 +23,4 @@ const server = app.listen(port, () => {
 })
 server.on('error', console.error)
 
-console.log('testing')
+console.log('testing 2')
