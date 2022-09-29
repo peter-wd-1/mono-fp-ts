@@ -10,7 +10,7 @@ import a from 'nx.json'
 console.log(a.affected)
 
 const data: Data = {
-  test: 'testing!! val has changed',
+  test: 'testing!! affected',
 }
 const app = express()
 
