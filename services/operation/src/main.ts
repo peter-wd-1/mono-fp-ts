@@ -10,7 +10,7 @@ import a from 'nx.json'
 console.log(a.affected)
 
 const data: Data = {
-  test: 'testing!! affected!! double!!!',
+  test: 'testing!! affected!! double!!! yes',
 }
 const app = express()
 
