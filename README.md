@@ -15,6 +15,7 @@ Consider our new developer trying to create an new service. This would be comple
 1. Pull repository
 2. Create feature branch
 3. Create service with name & port : will generate command and docker folder 
+4. Check affected code base graph
 
 ### Development
 
@@ -38,7 +39,6 @@ Consider our new developer trying to create an new service. This would be comple
    this will be done on marge pull request in github action.
    when ever you deploy the changes on production. 
    this will trigger bump of the version and release it on git   hub with change logs.
-   
 
 ## Generate an docker folder and ts-command
 
