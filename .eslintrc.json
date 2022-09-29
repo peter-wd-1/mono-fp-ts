@@ -39,7 +39,7 @@
             "functions": "always-multiline"
           }
         ],
-        "no-console": "warn",
+        "no-console": "error",
         "camelcase": "off",
         "no-warning-comments": "warn",
         "no-unused-vars": "warn",
