@@ -1,0 +1,41 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/cicd/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/cicd",
+        "tsConfig": "libs/cicd/tsconfig.lib.json",
+        "packageJson": "libs/cicd/package.json",
+        "main": "libs/cicd/src/index.ts",
+        "assets": ["libs/cicd/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/cicd/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/cicd"],
+      "options": {
+        "jestConfig": "libs/cicd/jest.config.ts",
+        "passWithNoTests": true,
+        "watch": true
+      }
+    },
+    "type-check": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p libs/cicd/tsconfig.lib.json -w"
+      }
+    }
+  },
+  "tags": []
+}
