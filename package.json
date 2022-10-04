@@ -9,7 +9,8 @@
     "prepare": "husky install",
     "create-lib": "sh -c 'yarn nx g @nrwl/node:library ${0} && yarn nx g @rfiready/cicd:init ${0}' --service='' --port=''",
     "create-service": "sh -c 'yarn nx g @nrwl/express:application ${0} && yarn nx g @rfiready/cicd:init ${0}'",
-    "remove-project": "sh -c 'yarn nx g remove ${0}'"
+    "remove-project": "sh -c 'yarn nx g remove ${0}'",
+    "release": "standard-version"
   },
   "private": true,
   "dependencies": {
@@ -49,7 +50,7 @@
     "@typescript-eslint/eslint-plugin": "~5.33.1",
     "@typescript-eslint/parser": "~5.33.1",
     "commitizen": "^4.2.5",
-    "cz-conventional-changelog": "^3.3.0",
+    "cz-conventional-changelog": "3.3.0",
     "eslint": "~8.15.0",
     "eslint-config-prettier": "8.1.0",
     "husky": "^8.0.0",
@@ -60,6 +61,7 @@
     "lerna": "^5.5.1",
     "nx": "14.7.3",
     "prettier": "^2.6.2",
+    "standard-version": "^9.5.0",
     "ts-auto-mock": "^3.6.2",
     "ts-jest": "28.0.5",
     "ts-node": "10.9.1",
