@@ -25,6 +25,9 @@ jobs:
       - name: Install packages
         run: yarn install
 
+      - name: Check Affected
+        run: yarn nx affected:apps
+
       # - name: ConfigureAWS
       #   uses: aws-actions/configure-aws-credentials@v1
       #   with:
