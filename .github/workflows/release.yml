@@ -8,9 +8,16 @@ jobs:
     strategy:
       matrix:
         node-version: [16.10.0]
-    env:
-      COMMIT_MSG: ${{ github.event.head_commit.message }}${{ github.event.pull_request.title }}
     steps:
+      - name: Install packages
+        run: sudo apt-get install -y git
+
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
       - name: Conventional Changelog Action
         id: changelog
         uses: TriPSs/conventional-changelog-action@v3
