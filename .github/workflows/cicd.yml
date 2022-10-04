@@ -7,7 +7,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     matrix:
-        node-version: [16.x]
+        node-version: [16.10.0]
     env:
       COMMIT_MSG: ${{ github.event.head_commit.message }}${{ github.event.pull_request.title }}
     steps:
