@@ -17,6 +17,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+
+      - name: export key
+        run: |
+          echo ${{ secrets.aws_ec2_key }} > ./key.pem
+
       - name: upload generated deploy script
         uses: appleboy/scp-action@master
         with:
@@ -24,5 +29,11 @@ jobs:
           username: ec2-user
           port: 22
           key: ${{ secrets.aws_ec2_key }}
-          source: "./README.md, ./GUIDE.md"
+          source: "./*"
           target: "/home/ec2-user"
+
+      - name: generate script for deploy
+        run: |
+          echo -e '#!/bin/sh \n
+          cd /home/ec2-user \
+          ' > ./generated_backend_deploy.sh
