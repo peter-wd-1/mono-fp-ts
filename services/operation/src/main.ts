@@ -8,7 +8,7 @@ import { tryCatch } from '@rfiready/utils'
 console.log(tryCatch)
 const app = express()
 app.get('/api', (req, res) => {
-  res.send({ message: 'testing!!!!' })
+  res.send({ message: 'testing!!!!!!' })
 })
 const port = 3333
 const server = app.listen(port, () => {
