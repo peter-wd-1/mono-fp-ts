@@ -11,22 +11,29 @@ jobs:
     env:
       COMMIT_MSG: ${{ github.event.head_commit.message }}${{ github.event.pull_request.title }}
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      # - uses: actions/checkout@v3
+      # - name: Use Node.js ${{ matrix.node-version }}
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: ${{ matrix.node-version }}
+      - name: Install xmllint
+        run: sudo apt-get install -y libxml2-utils
+      - uses: actions/checkout@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          fetch-depth: 0
+      - uses: nrwl/nx-set-shas@v3
+      - run: npx nx affected --target=lint --parallel=3
 
-      - uses: actions/cache@v2
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      # - uses: actions/cache@v2
+      #   with:
+      #     path: '**/node_modules'
+      #     key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Install packages
-        run: yarn install
+      # - name: Install packages
+      #   run: yarn install
 
-      - name: Check Affected
-        run: yarn nx affected:apps
+      # - name: Check Affected
+      #   run: yarn nx affected:apps
 
       # - name: ConfigureAWS
       #   uses: aws-actions/configure-aws-credentials@v1
