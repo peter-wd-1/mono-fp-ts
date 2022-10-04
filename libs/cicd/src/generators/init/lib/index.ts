@@ -8,14 +8,18 @@ import {
 import { TSGeneratorOptions } from '../types'
 import { tryCatch } from '@rfiready/utils'
 
-export const generateFilesFP = (tree: Tree, schema: TSGeneratorOptions) =>
+export const generateFilesFP = (
+  tree: Tree,
+  schema: TSGeneratorOptions,
+  fromPath: string,
+  replace: any,
+) =>
   tryCatch(() =>
     generateFiles(
       tree,
-      joinPathFragments(__dirname, '../files/'),
+      fromPath, // joinPathFragments(__dirname, '../files/'),
       readProjectConfiguration(tree, names(schema.name).fileName).root,
-      // this obj is for switch placeholder in the files to the actual values.
-      {},
+      replace,
     ),
   )
 

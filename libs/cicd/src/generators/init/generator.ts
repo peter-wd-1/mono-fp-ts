@@ -10,7 +10,6 @@ import {
 } from './features/updateConfigs'
 import { updateDokCompose } from './features/generateDockerCompose'
 import { updateRootConfig } from './features/generateServiceConfig'
-import { execute, generateFilesFP } from './lib'
 import chalk from 'chalk'
 
 // TODO convert it to seqences.
@@ -25,17 +24,8 @@ export default async function (tree: Tree, schema: TSGeneratorOptions) {
               updateDokCompose({
                 tree,
                 schema,
-                paths: [__dirname, './files/docker/docker-compose.yml'],
               }),
             ),
-            E.chain(() =>
-              updateDokCompose({
-                tree,
-                schema,
-                paths: [__dirname, './files/docker/docker-compose.dev.yml'],
-              }),
-            ),
-            E.chain(() => pipe(generateFilesFP(tree, schema), execute)),
           )
         : E.right(null),
     ),

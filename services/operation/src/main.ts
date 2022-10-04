@@ -5,8 +5,8 @@
 
 import express from 'express'
 import { tryCatch } from '@rfiready/utils'
+console.log(tryCatch)
 const app = express()
-console.log({ tryCatch })
 app.get('/api', (req, res) => {
   res.send({ message: 'testing' })
 })

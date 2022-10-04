@@ -35,7 +35,7 @@ describe('Dev Executor', () => {
         child.addListener('error', reject)
         child.addListener('exit', resolve)
       })
-    const child = exec('yarn nx run cicd:execute-cd')
+    const child = exec('yarn nx run cicd:deploy')
     child.stdin?.write('\uE007')
     child.stdout?.setEncoding('utf-8')
     child.stdout?.on('data', (data: string) => {

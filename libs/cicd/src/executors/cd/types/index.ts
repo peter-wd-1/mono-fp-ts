@@ -1,7 +1,7 @@
 import { ExecutorContext, runExecutor } from '@nrwl/devkit'
 import { TaskEither } from 'fp-ts/lib/TaskEither'
 export interface ProjectExecutable {
-  _tag: 'ProjectDevExecutable'
+  _tag: 'ProjectExecutable'
   executables: Array<TaskEither<Error, Awaited<ReturnType<typeof runExecutor>>>>
 }
 

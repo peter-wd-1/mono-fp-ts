@@ -11,20 +11,17 @@ export const getRunExecutorTE =
     TE.tryCatch(() => runExecutor({ project, target }, overrides, context), E.toError)
 
 export const getDevExecutorTE = getRunExecutorTE('docker-dev')
-export const getPushDeployExecutorTE = getRunExecutorTE('mark-deploy')
-export const getMarkDeployExecutorTE = getRunExecutorTE('push-deploy')
+export const getMarkDeployExecutorTE = getRunExecutorTE('mark-deploy')
+export const getPushDeployExecutorTE = getRunExecutorTE('push-deploy')
 
-// export const of = (args: ProjectExecutableArgs): ProjectExecutable => ({
-//   _tag: 'ProjectDevExecutable',
-//   executables: pipe(args.projects, A.map(getDevExecutorTE(args.overrides, args.context))),
-// })
+// writeJsonFileFP({ _path: workspaceRoot, filename: 'deploy.json', projects })
 export const ap = <A, B>(fab: Array<(a: A) => B>, fa: Array<A>): Array<B> =>
   A.flatten(fab.map((f) => fa.map(f)))
 
 export const of = (args: ProjectExecutableArgs): ProjectExecutable => {
-  const env = O.of(args.env === Env.PROD ? O.some(1) : O.none)
+  const env: O.Option<number> = args.env === Env.PROD ? O.some(1) : O.none
   return {
-    _tag: 'ProjectDevExecutable',
+    _tag: 'ProjectExecutable',
     executables: pipe(
       env,
       O.fold(

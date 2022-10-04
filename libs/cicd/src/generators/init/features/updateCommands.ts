@@ -30,14 +30,14 @@ const getTarget = (root: string, projectType: string) =>
           ['dev']: {
             executor: '@rfiready/cicd:cd',
             outputs: ['{options.outputPath}'],
-            option: {
+            options: {
               env: 'development',
             },
           },
           ['deploy']: {
             executor: '@rfiready/cicd:cd',
             outputs: ['{options.outputPath}'],
-            option: {
+            options: {
               env: 'production',
             },
           },

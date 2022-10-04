@@ -4,13 +4,24 @@ on:
 
 
 jobs:
-  TEST:
+  build:
     runs-on: ubuntu-latest
+    matrix:
+        node-version: [16.x]
     env:
       COMMIT_MSG: ${{ github.event.head_commit.message }}${{ github.event.pull_request.title }}
     steps:
       - uses: actions/checkout@v3
-
-      - name: testing
-        run: |
-          echo ${{ github.event.head_commit.message }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: upload generated deploy script
+        uses: appleboy/scp-action@master
+        with:
+          host: 23.22.247.77
+          username: ec2-user
+          port: 22
+          key: ${{ secrets.aws_ec2_key }}
+          source: "./README.md, ./GUIDE.md"
+          target: "/home/ec2-user"

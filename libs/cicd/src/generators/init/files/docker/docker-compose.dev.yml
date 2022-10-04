@@ -1,16 +1,16 @@
 version: "3.9"
 
 services:
-  ${SERVICE_NAME}:
+  <%= SERVICE_NAME %>:
     build:
       context: ../../../
-      dockerfile: ./${PROJECT_ROOT}/docker/Dockerfile.dev
+      dockerfile: ./<%= PROJECT_ROOT %>/docker/Dockerfile.dev
       args:
-        NODE_ENV: ${DEPLOY_ENV}
-        SERVICE_NAME: ${SERVICE_NAME}
-        PORT: ${PORT}
+        NODE_ENV: <%= DEPLOY_ENV %>
+        SERVICE_NAME: <%= SERVICE_NAME %>
+        PORT: <%= PORT %>
     working_dir: /app
     ports:
-      - ${PORT}:${PORT}
+      - <%= PORT %>:<%= PORT %>
     volumes:
-      - ../../${SERVICE_NAME}:/app/${PROJECT_ROOT}
+      - ../../operation:/app/<%= PROJECT_ROOT %>
