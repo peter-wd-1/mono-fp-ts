@@ -1,0 +1,77 @@
+#+TITLE: RFIReady
+
+* Dev Ops with NX.🔥
+** Development
+Dev needs to regularly commit for update latest code. and push to share code or to deploy. Dev only can suggest deploy by creating PR, and authority should approve the PR to deploy on production.
+*** Emacs settup note
+Use flycheck javascript-eslint checker to get a eslint message.
+*** Creating New libs and services
+**** DONE create generator for creating files in libs/apps
+**** DONE jest auto mock setup in root workspace without setting up in every libs and services
+**** TODO generate default command
+***** TODO add commands generator =deploy=
+****** push docker image with current realease version
+***** TODO add commands generator =docker-serve=
+****** runs docker swarm deploy for service with current realease version
+***** DONE add commands generator =docker-dev=
+**** DONE generate jest, ts types include.
+***** DONE create global type in root so that every libs/apps can use it by adding d.ts in their tsconfig and tsconfig.spac
+***** DONE make this process in tsprojgen generator
+*** Create branch and keep rebase main from created branch
+**** DONE trigger =pull origin main --rebase= to rebase after new commit using husky.
+check .husky/post-commit
+*** Run dev server container for all services dev wants
+this is only be executed on dev's local machine.
+dev can exec command =start dev= to start docker dev containers.
+**** DONE create nx plugin called CICD.
+**** DONE Add =start dev= command package.json for created plugin to be executed.
+**** DONE grab workspace.json and extract all projects and create array of path of each project.
+**** DONE use inquery for asking which project to be docker compose build and up.
+**** DONE use array of input of dev's choice for execution of docker compose.
+**** DONE execute docker compose up -d with the paths given.
+*** Run dev server for current service on development
+This will be left now automated since dev can choose their own terminal and visibility of logs their own.
+**** DONE make nx plugin Receive service name as arg and use it to chain command =nx lint, test, build, serve <service name>= with watch option.
+
+** Deployment
+CI has moved to local since husky can trigger CI on local.
+*** Registry can restrict access to push/pull images from the registry
+so only git hub action and admin can actually push/pull images and deploy on production.
+**** TODO deploy registry with basic auth
+https://docs.docker.com/registry/deploying/#deploy-your-registry-using-a-compose-file
+**** TODO add password to git hub repo secrets.
+**** TODO write workflow to login docker =docker login myregistrydomain.com:5000= with password in git hub secret
+*** Commit changes with conventional commit and automatic version bump to keep tracking changes.
+this dose not trigger deployment on production. only merge PR on github wil trigger deploy. Services on production can have diff version of monorepo.
+**** TODO use husky pre-commit to trigger lint, test all affected code
+**** TODO add yarn command for cz commit
+**** TODO trigger cz bump after commit
+**** TODO create cz change logs
+*** Push changes whitout Deployment to update code base and share current changes.(optional)
+**** TODO add yarn command git push
+*** Creatae PR to deploy all affected services
+PR message has all deploy flag, and this will copy/past merge message manually if dev decided to dpeloy. Git action will detect merge message has all deploy exec immediately deploy script for all affected.
+**** TODO take user input for header message and generate flag message 'CD All'
+**** TODO execute git-hub cli command for creating PR with generated message
+**** TODO write git workflow to check merge message if it has 'CD All' and exec =nx affected:deploy= (push docker image)
+**** TODO generate deploy script that executes =nx affected:docker-servce= that runs docker swarm deploy for service
+**** TODO write git workflow to send the script to main server
+**** TODO aws codedeploy runs the script
+*** Creatae PR to deploy some services dev wants
+PR message has lift of services that needs to be deployed. And this will copy/past merge message manually if dev decided to dpeloy. Git action will detect merge message has deploy flag for some and parse merge message, pass it to deploy script.
+**** TODO use services array to and use it as a PR message
+**** TODO write workflow to detect 'CD' to
+*** From local create PR to Deploy all affected services with releasing current version with change logs on git hub
+PR message has flag for all
+*** From local create PR to Deploy some services dev wants with releasing current version with change logs on git hub
+** Migration
+*** Migrate current services.
+**** TODO move libs
+**** TODO change import paths
+**** TODO creat auth admin server repo and move all files
+
+
+** Issues
+*** Connot use some packages for jest that uses ESM modules
+*** Connot use pure EMS modules pakcages.
+**** TODO try this link(use ESM from typescript project) https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
