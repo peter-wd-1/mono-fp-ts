@@ -28,6 +28,18 @@
         "jestConfig": "libs/utils/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "type-check": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "main": "libs/utils/src/main.ts",
+        "outputPath": "dist/libs/utils",
+        "tsConfig": "libs/utils/tsconfig.lib.json"
+      }
+    },
+    "start-dev": {
+      "executor": "@rfiready/cicd:dev",
+      "outputs": ["{options.outputPath}"]
     }
   },
   "tags": []

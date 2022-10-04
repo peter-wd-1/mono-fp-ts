@@ -5,7 +5,6 @@ export default {
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
-      compiler: 'ttypescript',
     },
   },
   testEnvironment: 'node',
@@ -14,5 +13,4 @@ export default {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/libs/cicd',
-  setupFiles: ['<rootDir>/jest-auto-mock.config.ts'],
 }

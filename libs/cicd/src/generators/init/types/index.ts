@@ -1,14 +1,13 @@
-import { ProjectConfiguration, TargetConfiguration } from '@nrwl/devkit'
+import { TargetConfiguration } from '@nrwl/devkit'
 import { IOEither } from 'fp-ts/IOEither'
 import { NonEmptyArray } from 'fp-ts/lib/NonEmptyArray'
 
-export type IOETry<T> = IOEither<Error, T>
-
-export type GetTarget = (root: string) => {
-  [x: string]: TargetConfiguration<{ command: string }>
+export type GetTarget = (
+  root: string,
+  projectType: string,
+) => {
+  [x: string]: TargetConfiguration<any>
 }
-
-export type ProjConfigUnary = (projConfig: ProjectConfiguration) => ProjectConfiguration
 
 export type ReplaceConfigData = (
   cfg: ServiceConfigValue,

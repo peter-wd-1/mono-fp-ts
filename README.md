@@ -5,6 +5,7 @@
 - Add Command `type-check` for ts project. 
 - Add docker folder and its files to project
 - Husky for conventional commit + service deployment from commit
+- Support ts-auto-mock
 
 ## Workflow
 

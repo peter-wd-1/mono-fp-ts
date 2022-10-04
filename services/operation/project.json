@@ -1,21 +1,16 @@
 {
-  "root": "services/operation",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "services/operation/src",
   "projectType": "application",
   "targets": {
     "build": {
       "executor": "@nrwl/node:webpack",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/services/operation",
         "main": "services/operation/src/main.ts",
         "tsConfig": "services/operation/tsconfig.app.json",
-        "assets": [
-          "services/operation/src/assets"
-        ]
+        "assets": ["services/operation/src/assets"]
       },
       "configurations": {
         "production": {
@@ -45,29 +40,41 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "services/operation/**/*.ts"
-        ]
+        "lintFilePatterns": ["services/operation/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/services/operation"
-      ],
+      "outputs": ["coverage/services/operation"],
       "options": {
         "jestConfig": "services/operation/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "type-check": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "main": "services/operation/src/main.ts",
+        "outputPath": "dist/services/operation",
+        "tsConfig": "services/operation/tsconfig.app.json"
+      }
+    },
+    "start-dev": {
+      "executor": "@rfiready/cicd:dev",
+      "outputs": ["{options.outputPath}"]
+    },
+    "docker-dev": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "tsc -p services/operation/tsconfig.json"
+        "command": "docker compose -f services/operation/docker/docker-compose.dev.yml up -d"
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker compose -f services/operation/docker/docker-compose.yml build && docker-compose -f services/operation/docker/docker-compose.yml push"
       }
     }
   },

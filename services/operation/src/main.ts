@@ -4,23 +4,14 @@
  */
 
 import express from 'express'
-import { Data } from '@rfiready/data'
-import a from 'nx.json'
-
-console.log(a.affected)
-
-const data: Data = {
-  test: 'testing!! affected!! double!!! yes',
-}
+import { tryCatch } from '@rfiready/utils'
 const app = express()
-
+console.log({ tryCatch })
 app.get('/api', (req, res) => {
-  res.send({ message: data })
+  res.send({ message: 'testing' })
 })
 const port = 3333
 const server = app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}/api`)
 })
 server.on('error', console.error)
-
-console.log('testing 2')

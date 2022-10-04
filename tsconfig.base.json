@@ -26,9 +26,15 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "paths": {
-      "@rfiready/core": ["libs/core/src/index.ts"],
-      "@rfiready/data": ["libs/data/src/index.ts"]
-    }
+      "@rfiready/cicd": ["libs/cicd/src/index.ts"],
+      "@rfiready/utils": ["libs/utils/src/index.ts"]
+    },
+    "plugins": [
+      {
+        "transform": "ts-auto-mock/transformer",
+        "cacheBetweenTests": false
+      }
+    ]
   },
   "exclude": ["node_modules", "tmp"]
 }

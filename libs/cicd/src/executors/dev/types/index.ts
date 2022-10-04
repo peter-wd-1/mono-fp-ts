@@ -1,5 +1,4 @@
 import { ExecutorContext, runExecutor } from '@nrwl/devkit'
-import { Task } from 'fp-ts/lib/Task'
 import { TaskEither } from 'fp-ts/lib/TaskEither'
 export interface ProjectDevExecutable {
   _tag: 'ProjectDevExecutable'

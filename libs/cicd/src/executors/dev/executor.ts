@@ -1,10 +1,10 @@
 import { DevExecutorSchema } from './schema'
 import fuzzy from 'fuzzy'
 import { inquirer } from './inquirer'
-import { ExecutorContext, logger, runExecutor } from '@nrwl/devkit'
+import { ExecutorContext, logger } from '@nrwl/devkit'
 import { flow, pipe } from 'fp-ts/lib/function'
 import chalk from 'chalk'
-import * as PDE from '@rfiready/cicd/data/ProjectDevExecutable'
+import * as PDE from './core/ProjectDevExecutable'
 import * as TE from 'fp-ts/TaskEither'
 import * as T from 'fp-ts/Task'
 import * as E from 'fp-ts/Either'
@@ -43,19 +43,12 @@ export const getTargetProjects = (
   )
 
 export const PDEpipeline = flow(PDE.of, PDE.exectableSeq)
-
-/**
- * This executor runs selected projects docker-compose up and run CI watch for current project.
- */
-export default async function runDevExecutor(options: DevExecutorSchema, context: ExecutorContext) {
-  return await pipe(
+export const mainPipeline = (options: DevExecutorSchema, context: ExecutorContext) =>
+  pipe(
     Object.keys(context.workspace.projects),
     A.filter((projName) => context.workspace.projects[projName]!.projectType! === 'application'),
     getTargetProjects,
-    // now know which project to run docker-compose up.
-    // runExecutor of each project's target dockerDev command.
-    // and run serve w/watch mode current project.
-    TE.chain(({ projects }) => PDEpipeline({ projects, overrides: { watch: true }, context })),
+    TE.chain(({ projects }) => PDEpipeline({ projects, overrides: {}, context })),
     TE.fold(
       (error) => {
         logger.error(error.message)
@@ -64,11 +57,17 @@ export default async function runDevExecutor(options: DevExecutorSchema, context
         })
       },
       () => {
-        logger.log('success')
+        logger.log('Done.')
         return T.of({
           success: true,
         })
       },
     ),
-  )()
+  )
+
+/**
+ * This executor runs selected projects docker-compose up and run CI watch for current project.
+ */
+export default async function runDevExecutor(options: DevExecutorSchema, context: ExecutorContext) {
+  return await mainPipeline(options, context)()
 }

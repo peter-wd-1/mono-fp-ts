@@ -4,7 +4,6 @@ import * as E from 'fp-ts/Either'
 import * as AP from 'fp-ts/Apply'
 import * as SE from 'fp-ts/Semigroup'
 import * as Eq from 'fp-ts/Eq'
-import * as IO from 'fp-ts/IO'
 import * as string from 'fp-ts/string'
 import { pipe } from 'fp-ts/lib/function'
 import { ServiceConfiguration, ServiceConfigValue, UserCfg } from '../types'
@@ -92,7 +91,7 @@ const validateErrorSemigroup: SE.Semigroup<NonEmptyArray<Error>> = {
 export const validateUserConfiguration = (userCfg: UserCfg) =>
   pipe(
     AP.sequenceS(E.getApplicativeValidation(validateErrorSemigroup))({
-      PORT: liftNonEmpA(validatePort)(userCfg.port!.toString()),
+      PORT: liftNonEmpA(validatePort)(userCfg.port.toString()),
       SERVICE_NAME: liftNonEmpA(validateServiceName)(userCfg.serviceName),
     }),
     E.mapLeft(mapErrorMsg),

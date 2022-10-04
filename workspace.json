@@ -2,8 +2,8 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "core": "libs/core",
-    "data": "libs/data",
-    "operation": "services/operation"
+    "cicd": "libs/cicd",
+    "operation": "services/operation",
+    "utils": "libs/utils"
   }
 }

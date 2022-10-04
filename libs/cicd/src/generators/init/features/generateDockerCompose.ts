@@ -3,9 +3,10 @@ import fs from 'fs'
 import path from 'path'
 import * as IOEither from 'fp-ts/IOEither'
 import * as A from 'fp-ts/Array'
-import { IOETry, ServiceConfiguration, ServiceConfigValue, TSGeneratorOptions } from '../types'
+import { ServiceConfiguration, ServiceConfigValue, TSGeneratorOptions } from '../types'
 import { names, readProjectConfiguration, Tree, workspaceRoot } from '@nrwl/devkit'
 import { execute, merge, readJsonFileFP, tryCatch } from '../lib'
+import { IOETry } from '@rfiready/utils'
 
 const readDokCompose = (paths: string[]): IOETry<string> =>
   tryCatch(() => fs.readFileSync(path.join(...paths), 'utf-8'))

@@ -2,15 +2,15 @@ version: "3.9"
 
 services:
   operation:
-    image: rfiready.co:5000/operation:prod
+    image: rfiready.co:5000/operation:test
     build:
-      context: ../../
+      context: ../../../
       dockerfile: ./services/operation/docker/Dockerfile
       args:
         NODE_ENV: prod
         SERVICE_NAME: operation
         PORT: 3333
-    working_dir: /service/operation
+    working_dir: /app
     deploy:
       replicas: 2
       restart_policy:
