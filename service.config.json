@@ -18,5 +18,9 @@
   {
     "PORT": "3333",
     "SERVICE_NAME": "operation"
+  },
+  {
+    "PORT": "1234",
+    "SERVICE_NAME": "test"
   }
 ]

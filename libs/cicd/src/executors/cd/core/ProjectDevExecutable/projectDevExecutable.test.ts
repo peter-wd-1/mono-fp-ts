@@ -4,6 +4,7 @@ import { of } from '.'
 import { pipe } from 'fp-ts/lib/function'
 import * as TE from 'fp-ts/TaskEither'
 import * as T from 'fp-ts/Task'
+import { Env } from '../../types'
 
 describe('ProjectDevExecutable', () => {
   it('can construct executables', async () => {
@@ -11,6 +12,7 @@ describe('ProjectDevExecutable', () => {
       projects: ['test1', 'test2'],
       overrides: {},
       context: createMock<ExecutorContext>(),
+      env: Env.DEV,
     })
     const testpipe = await pipe(
       r.executables[0]!,

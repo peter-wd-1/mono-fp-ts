@@ -9,6 +9,7 @@ import * as TE from 'fp-ts/TaskEither'
 import * as T from 'fp-ts/Task'
 import * as E from 'fp-ts/Either'
 import * as A from 'fp-ts/Array'
+import { Env } from './types'
 
 const promptSourceFn = (choices: string[]) => (_: any, input: string) =>
   pipe(
@@ -48,7 +49,14 @@ export const mainPipeline = (options: DevExecutorSchema, context: ExecutorContex
     Object.keys(context.workspace.projects),
     A.filter((projName) => context.workspace.projects[projName]!.projectType! === 'application'),
     getTargetProjects,
-    TE.chain(({ projects }) => PDEpipeline({ projects, overrides: {}, context })),
+    TE.chain(({ projects }) =>
+      PDEpipeline({
+        projects,
+        overrides: {},
+        context,
+        env: options.env,
+      }),
+    ),
     TE.fold(
       (error) => {
         logger.error(error.message)

@@ -24,31 +24,43 @@ const getTarget = (root: string, projectType: string) =>
           tsConfig: `${root}/tsconfig.${projectType === 'application' ? 'app' : 'lib'}.json`,
         },
       },
-      ['start-dev']: {
-        executor: '@rfiready/cicd:dev',
-        outputs: ['{options.outputPath}'],
-      },
     },
     projectType === 'application'
       ? {
+          ['dev']: {
+            executor: '@rfiready/cicd:cd',
+            outputs: ['{options.outputPath}'],
+            option: {
+              env: 'development',
+            },
+          },
+          ['deploy']: {
+            executor: '@rfiready/cicd:cd',
+            outputs: ['{options.outputPath}'],
+            option: {
+              env: 'production',
+            },
+          },
           ['docker-dev']: {
             executor: 'nx:run-commands',
             options: {
               command: `docker compose -f ${root}/docker/docker-compose.dev.yml up -d`,
             },
           },
-          ['deploy']: {
+          ['push-deploy']: {
             executor: 'nx:run-commands',
             options: {
-              command: `docker compose -f services/${root}/docker-compose.yml build && docker-compose -f ${root}/docker/docker-compose.yml push`,
+              command: `docker compose -f ${root}/docker/docker-compose.yml build && docker-compose -f ${root}/docker/docker-compose.yml push`,
             },
           },
-          // ['deploy-serve']: {
-          //   executor: 'nx:run-commands',
-          //   options: {
-          //     command: `docker stack deploy --compose-file /home/ec2-user/docker-compose.yml ${}`,
-          //   },
-          // },
+          ['mark-deploy']: {
+            executor: 'nx:run-commands',
+            options: {
+              command: `mkdir -p tmp/deploy && cp ${root}/docker/docker-compose.yml tmp/deploy/docker-compose.${root
+                .split('/')
+                .slice(-1)}.yml`,
+            },
+          },
         }
       : {},
   )

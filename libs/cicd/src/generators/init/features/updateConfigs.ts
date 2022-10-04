@@ -9,6 +9,7 @@ const addGlobalType = (tsconfig: Tsconfig): Tsconfig => ({
   ...tsconfig,
   include: [...tsconfig.include!, '../../types/**.*.ts'],
 })
+
 export const getJestJson = (projectType: string) =>
   `tsconfig.${projectType === 'application' ? 'app' : 'lib'}.json`
 

@@ -1,0 +1,39 @@
+import { ExecutorContext, runExecutor } from '@nrwl/devkit'
+import { Env, ObjBlob, ProjectExecutable, ProjectExecutableArgs } from '../../types'
+import { pipe } from 'fp-ts/lib/function'
+import * as A from 'fp-ts/Array'
+import * as TE from 'fp-ts/TaskEither'
+import * as E from 'fp-ts/Either'
+import * as O from 'fp-ts/Option'
+
+export const getRunExecutorTE =
+  (target: string) => (overrides: ObjBlob<any>, context: ExecutorContext) => (project: string) =>
+    TE.tryCatch(() => runExecutor({ project, target }, overrides, context), E.toError)
+
+export const getDevExecutorTE = getRunExecutorTE('docker-dev')
+export const getPushDeployExecutorTE = getRunExecutorTE('mark-deploy')
+export const getMarkDeployExecutorTE = getRunExecutorTE('push-deploy')
+
+// export const of = (args: ProjectExecutableArgs): ProjectExecutable => ({
+//   _tag: 'ProjectDevExecutable',
+//   executables: pipe(args.projects, A.map(getDevExecutorTE(args.overrides, args.context))),
+// })
+export const ap = <A, B>(fab: Array<(a: A) => B>, fa: Array<A>): Array<B> =>
+  A.flatten(fab.map((f) => fa.map(f)))
+
+export const of = (args: ProjectExecutableArgs): ProjectExecutable => {
+  const env = O.of(args.env === Env.PROD ? O.some(1) : O.none)
+  return {
+    _tag: 'ProjectDevExecutable',
+    executables: pipe(
+      env,
+      O.fold(
+        () => pipe(args.projects, A.map(getDevExecutorTE(args.overrides, args.context))),
+        () => ap([getMarkDeployExecutorTE(args.overrides, args.context)], args.projects),
+      ),
+    ),
+  }
+}
+
+export const exectableSeq = (projExecs: ProjectExecutable) =>
+  pipe(projExecs.executables, A.sequence(TE.ApplicativeSeq))

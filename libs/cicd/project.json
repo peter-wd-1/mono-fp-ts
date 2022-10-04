@@ -57,8 +57,8 @@
         "command": "tsc -p libs/cicd/tsconfig.lib.json -w"
       }
     },
-    "execute-dev": {
-      "executor": "@rfiready/cicd:dev"
+    "execute-cd": {
+      "executor": "@rfiready/cicd:cd"
     }
   },
   "tags": []

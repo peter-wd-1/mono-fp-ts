@@ -1,11 +1,11 @@
 import { DevExecutorSchema } from './schema'
 import { mainPipeline } from './executor'
 import { createMock, createHydratedMock } from 'ts-auto-mock'
-import { ExecutorContext, ProjectConfiguration } from '@nrwl/devkit'
+import { ExecutorContext, logger, ProjectConfiguration } from '@nrwl/devkit'
 import { ChildProcess, exec } from 'child_process'
 import * as utils from '@rfiready/utils'
 
-const options: DevExecutorSchema = {}
+const options: DevExecutorSchema = createMock<DevExecutorSchema>()
 const context: ExecutorContext = createMock<ExecutorContext>({
   workspace: {
     projects: {
@@ -35,11 +35,14 @@ describe('Dev Executor', () => {
         child.addListener('error', reject)
         child.addListener('exit', resolve)
       })
-    const child = exec('yarn nx run cicd:execute-dev')
+    const child = exec('yarn nx run cicd:execute-cd')
     child.stdin?.write('\uE007')
     child.stdout?.setEncoding('utf-8')
     child.stdout?.on('data', (data: string) => {
       if (data.includes('Done.')) expect(true).toBe(true)
+    })
+    child.stderr?.on('data', (data: string) => {
+      logger.debug(data)
     })
     child.stdin?.end()
     expect(await promisfy(child)).toBe(0)
