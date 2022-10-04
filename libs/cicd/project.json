@@ -57,7 +57,7 @@
         "command": "tsc -p libs/cicd/tsconfig.lib.json -w"
       }
     },
-    "cd-deploy": {
+    "deploy": {
       "executor": "@rfiready/cicd:cd",
       "outputs": ["{options.outputPath}"],
       "options": {
