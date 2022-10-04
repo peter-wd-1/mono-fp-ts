@@ -48,8 +48,7 @@
       "outputs": ["coverage/libs/cicd"],
       "options": {
         "jestConfig": "libs/cicd/jest.config.ts",
-        "passWithNoTests": true,
-        "watch": true
+        "passWithNoTests": true
       }
     },
     "type-check": {
