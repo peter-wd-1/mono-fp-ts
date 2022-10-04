@@ -31,14 +31,7 @@ const getTarget = (root: string, projectType: string) =>
             executor: '@rfiready/cicd:cd',
             outputs: ['{options.outputPath}'],
             options: {
-              env: 'development',
-            },
-          },
-          ['deploy']: {
-            executor: '@rfiready/cicd:cd',
-            outputs: ['{options.outputPath}'],
-            options: {
-              env: 'production',
+              env: 'dev',
             },
           },
           ['docker-dev']: {
@@ -53,12 +46,21 @@ const getTarget = (root: string, projectType: string) =>
               command: `docker compose -f ${root}/docker/docker-compose.yml build && docker-compose -f ${root}/docker/docker-compose.yml push`,
             },
           },
+          // TODO deprecaated : mark-deploy
           ['mark-deploy']: {
             executor: 'nx:run-commands',
             options: {
               command: `mkdir -p tmp/deploy && cp ${root}/docker/docker-compose.yml tmp/deploy/docker-compose.${root
                 .split('/')
                 .slice(-1)}.yml`,
+            },
+          },
+          ['serve-deploy']: {
+            executor: 'nx:run-commands',
+            options: {
+              command: `docker stack deploy --compose-file ${root}/docker/docker-compose.yml ${root
+                .split('/')
+                .slice(-1)}`,
             },
           },
         }

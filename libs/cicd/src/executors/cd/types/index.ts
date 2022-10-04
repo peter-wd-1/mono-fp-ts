@@ -10,6 +10,14 @@ export enum Env {
   PROD = 'prod',
 }
 
+export enum Action {
+  COMMIT = 'commit',
+  DEPLOY = 'deploy',
+  MAKE = 'make',
+  PUSH = 'push',
+  SERVE = 'serve',
+}
+
 export interface ProjectExecutableArgs {
   projects: string[]
   overrides: ObjBlob<any>

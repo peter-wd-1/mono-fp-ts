@@ -1,6 +1,6 @@
-import { Env } from './types'
+import { Action, Env } from './types'
 
 export interface DevExecutorSchema {
   env: Env
-  cd: boolean
+  action: Action
 } // eslint-disable-line

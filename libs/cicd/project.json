@@ -57,18 +57,57 @@
         "command": "tsc -p libs/cicd/tsconfig.lib.json -w"
       }
     },
+    "cz": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "git add . && cz ${0}"
+      }
+    },
+    "commit": {
+      "executor": "@rfiready/cicd:cd",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "env": "prod",
+        "action": "commit"
+      }
+    },
+    "dev": {
+      "executor": "@rfiready/cicd:cd",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "env": "dev"
+      }
+    },
     "deploy": {
       "executor": "@rfiready/cicd:cd",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "env": "prod"
+        "env": "prod",
+        "action": "deploy"
       }
     },
-    "cd-push": {
+    "make-deploylist": {
       "executor": "@rfiready/cicd:cd",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "env": "prod"
+        "env": "prod",
+        "action": "make"
+      }
+    },
+    "push-deploylist": {
+      "executor": "@rfiready/cicd:cd",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "env": "prod",
+        "action": "push"
+      }
+    },
+    "serve-deploylist": {
+      "executor": "@rfiready/cicd:cd",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "env": "prod",
+        "action": "serve"
       }
     }
   },

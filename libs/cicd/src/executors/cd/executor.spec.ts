@@ -4,6 +4,8 @@ import { createMock, createHydratedMock } from 'ts-auto-mock'
 import { ExecutorContext, logger, ProjectConfiguration } from '@nrwl/devkit'
 import { ChildProcess, exec } from 'child_process'
 import * as utils from '@rfiready/utils'
+import * as O from 'fp-ts/Option'
+import { Action } from './types'
 
 const options: DevExecutorSchema = createMock<DevExecutorSchema>()
 const context: ExecutorContext = createMock<ExecutorContext>({

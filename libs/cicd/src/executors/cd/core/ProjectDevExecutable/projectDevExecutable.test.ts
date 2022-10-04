@@ -4,7 +4,7 @@ import { of } from '.'
 import { pipe } from 'fp-ts/lib/function'
 import * as TE from 'fp-ts/TaskEither'
 import * as T from 'fp-ts/Task'
-import { Env } from '../../types'
+import { Action, Env } from '../../types'
 
 describe('ProjectDevExecutable', () => {
   it('can construct executables', async () => {
@@ -22,5 +22,17 @@ describe('ProjectDevExecutable', () => {
       ),
     )()
     expect(testpipe).toBe('Could not find project "test1"')
+  })
+})
+
+describe('action', () => {
+  const action: Action = Action.DEPLOY
+  it('can switch case action', () => {
+    // pipe(
+    //   action,
+
+    //
+
+    expect(true).toBe(true)
   })
 })

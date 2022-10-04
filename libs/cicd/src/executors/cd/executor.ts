@@ -49,6 +49,7 @@ export const mainPipeline = (options: DevExecutorSchema, context: ExecutorContex
     Object.keys(context.workspace.projects),
     A.filter((projName) => context.workspace.projects[projName]!.projectType! === 'application'),
     getTargetProjects,
+    // option prod ? project = getfromjson : gettargetproject
     TE.chain(({ projects }) =>
       PDEpipeline({
         projects,
