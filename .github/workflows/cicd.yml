@@ -28,20 +28,20 @@ jobs:
       - name: Install packages
         run: yarn install
 
-      - name: push docker images
-        run: yarn nx push-deploylist cicd
+      # - name: push docker images
+      #   run: yarn nx push-deploylist cicd
 
-      - name: ConfigureAWS
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
+      # - name: ConfigureAWS
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: ${{ env.AWS_REGION }}
 
-      - name: Deploy
-        run: |
-          aws deploy create-deployment \
-          --application-name ${{ env.APP_NAME }} \
-          --deployment-group-name ${{ env.DEPLOY_GROUP }} \
-          --deployment-config-name ${{ env.DEPLOY_CONFIG }} \
-          --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
+      # - name: Deploy
+      #   run: |
+      #     aws deploy create-deployment \
+      #     --application-name ${{ env.APP_NAME }} \
+      #     --deployment-group-name ${{ env.DEPLOY_GROUP }} \
+      #     --deployment-config-name ${{ env.DEPLOY_CONFIG }} \
+      #     --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
