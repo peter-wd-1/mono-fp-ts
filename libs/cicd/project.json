@@ -60,7 +60,7 @@
     "commit": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "git add . && yarn cz"
+        "command": "yarn nx make-deploylist cicd && git add . && yarn cz"
       }
     },
     "release": {
