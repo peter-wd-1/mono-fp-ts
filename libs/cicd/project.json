@@ -63,6 +63,12 @@
         "command": "git add . && yarn cz"
       }
     },
+    "commit-pr": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "gh pr create"
+      }
+    },
     "release": {
       "executor": "nx:run-commands",
       "options": {
