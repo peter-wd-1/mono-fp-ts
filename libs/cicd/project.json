@@ -66,7 +66,7 @@
     "release": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn nx make-deploylist cicd && yarn run release && git push --follow-tags"
+        "command": "yarn run release && git push --follow-tags"
       }
     },
     "null": {
