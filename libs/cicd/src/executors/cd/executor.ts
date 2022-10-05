@@ -10,7 +10,7 @@ import * as T from 'fp-ts/Task'
 import * as E from 'fp-ts/Either'
 import * as A from 'fp-ts/Array'
 import * as O from 'fp-ts/Option'
-import { Env } from './types'
+import { Action, Env } from './types'
 import { execute, readJsonFileFP, writeJsonFileFP } from '../../generators/init/lib'
 
 const promptSourceFn = (choices: string[]) => (_: any, input: string) =>
@@ -21,29 +21,31 @@ const promptSourceFn = (choices: string[]) => (_: any, input: string) =>
     ),
   )()
 
-export const getTargetProjects = (
-  choices: string[],
-): TE.TaskEither<Error, { projects: string[] }> =>
-  TE.tryCatch(
-    () =>
-      inquirer.prompt([
-        {
-          type: 'checkbox-plus',
-          name: 'projects',
-          pageSize: 10,
-          highlight: true,
-          searchable: true,
-          message:
-            'Select the projects you want execute the command on.' +
-            chalk.cyan(' <space> ') +
-            'to select projects' +
-            '\n' +
-            chalk.green('🔎 Type to search.'),
-          source: promptSourceFn(choices),
-        },
-      ]),
-    E.toError,
-  )
+export const getTargetProjects =
+  (options: DevExecutorSchema) =>
+  (choices: string[]): TE.TaskEither<Error, { projects: string[] }> =>
+    TE.tryCatch(
+      () =>
+        inquirer.prompt([
+          {
+            type: 'checkbox-plus',
+            name: 'projects',
+            pageSize: 10,
+            highlight: true,
+            searchable: true,
+            message:
+              options.action === Action.MAKE
+                ? 'Choose services you want to deploy. You can choose nothing if you don not want to deploy service'
+                : 'Select the projects you want execute the command on.' +
+                  chalk.cyan(' <space> ') +
+                  'to select projects' +
+                  '\n' +
+                  chalk.green('🔎 Type to search.'),
+            source: promptSourceFn(choices),
+          },
+        ]),
+      E.toError,
+    )
 
 export const writeDeployList = (projects: string[]) =>
   pipe(
@@ -70,9 +72,9 @@ export const mainPipeline = (options: DevExecutorSchema, context: ExecutorContex
           A.filter(
             (projName) => context.workspace.projects[projName]!.projectType! === 'application',
           ),
-          getTargetProjects,
+          getTargetProjects(options),
           TE.map(({ projects }) => {
-            writeDeployList(projects)
+            options.action !== Action.DEV && writeDeployList(projects)
             return projects
           }),
         ),

@@ -63,29 +63,32 @@
         "command": "git add . && yarn cz"
       }
     },
-    "commit-pr": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "gh pr create"
-      }
-    },
     "release": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn run release && git push --follow-tags origin main"
+        "command": "yarn nx make-deploylist cicd && yarn run release && git push --follow-tags"
       }
     },
     "null": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "echo null command executed"
+        "command": ""
       }
     },
     "dev": {
       "executor": "@rfiready/cicd:cd",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "env": "dev"
+        "env": "dev",
+        "action": "dev"
+      }
+    },
+    "deploy-local": {
+      "executor": "@rfiready/cicd:cd",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "env": "dev",
+        "action": "deploy"
       }
     },
     "deploy": {
@@ -100,7 +103,7 @@
       "executor": "@rfiready/cicd:cd",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "env": "prod",
+        "env": "dev",
         "action": "make"
       }
     },

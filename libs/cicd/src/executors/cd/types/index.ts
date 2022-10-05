@@ -19,6 +19,7 @@ export enum Action {
   PUSH = 'push',
   SERVE = 'serve',
   NULL = 'null',
+  DEV = 'dev',
 }
 
 export interface ProjectExecutableArgs {

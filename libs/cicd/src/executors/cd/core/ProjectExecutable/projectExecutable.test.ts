@@ -1,23 +1,10 @@
 import { createMock } from 'ts-auto-mock'
 import { ExecutorContext } from '@nrwl/devkit'
-import {
-  ap,
-  getCommitExecutorTE,
-  getPushDeployExecutorTE,
-  getReleaseExecutorTE,
-  getServeDeployExecutorTE,
-  of,
-} from '.'
+import { of } from '.'
 import { pipe } from 'fp-ts/lib/function'
 import * as TE from 'fp-ts/TaskEither'
 import * as T from 'fp-ts/Task'
 import * as E from 'fp-ts/Either'
-import * as O from 'fp-ts/Option'
-import * as RA from 'fp-ts/ReadonlyArray'
-import * as R from 'fp-ts/Reader'
-import { Action, Env } from '../../types'
-import { sequence } from 'fp-ts/lib/Array'
-import { execute } from '@rfiready/utils'
 import { readDeployList, writeDeployList } from '../../executor'
 import { DevExecutorSchema } from '../../schema'
 
@@ -36,7 +23,7 @@ describe('ProjectDevExecutable', () => {
         () => T.of('sucess'),
       ),
     )()
-    expect(testpipe).toBe('Could not find project "test1"')
+    expect(testpipe).toBe('Could not find project "cicd"')
   })
 })
 
