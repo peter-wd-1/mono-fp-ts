@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/peter-wd-1/mono-fp-ts/compare/v1.5.1...v1.6.0) (2022-10-05)
+
+
+### Features
+
+* **cicd:** update ([d333e1e](https://github.com/peter-wd-1/mono-fp-ts/commit/d333e1e92d29f6abb8b64e664312243796c709f2))
+* update ([aa2fc94](https://github.com/peter-wd-1/mono-fp-ts/commit/aa2fc94dacf592eb82104414b7f4b74e379fd4b7))
+* update ([c97fcd9](https://github.com/peter-wd-1/mono-fp-ts/commit/c97fcd93b6d4650b0e0e4c75469d311e8288e780))
+
 ### [1.5.1](https://github.com/peter-wd-1/mono-fp-ts/compare/v1.5.0...v1.5.1) (2022-10-05)
 
 ## [1.3.0](https://github.com/peter-wd-1/mono-fp-ts/compare/v1.1.1...v1.3.0) (2022-10-04)
