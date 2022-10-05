@@ -57,18 +57,22 @@
         "command": "tsc -p libs/cicd/tsconfig.lib.json -w"
       }
     },
-    "cz": {
+    "commit": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "git add . && cz ${0}"
+        "command": "git add . && yarn cz"
       }
     },
-    "commit": {
-      "executor": "@rfiready/cicd:cd",
-      "outputs": ["{options.outputPath}"],
+    "release": {
+      "executor": "nx:run-commands",
       "options": {
-        "env": "prod",
-        "action": "commit"
+        "command": "yarn run release && git push --follow-tags origin main"
+      }
+    },
+    "null": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo null command executed"
       }
     },
     "dev": {

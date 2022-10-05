@@ -1,8 +1,9 @@
 import { ExecutorContext, runExecutor } from '@nrwl/devkit'
 import { TaskEither } from 'fp-ts/lib/TaskEither'
+import { DevExecutorSchema } from '../schema'
 export interface ProjectExecutable {
   _tag: 'ProjectExecutable'
-  executables: Array<TaskEither<Error, Awaited<ReturnType<typeof runExecutor>>>>
+  executables: ReadonlyArray<TaskEither<Error, Awaited<ReturnType<typeof runExecutor>>>>
 }
 
 export enum Env {
@@ -12,17 +13,19 @@ export enum Env {
 
 export enum Action {
   COMMIT = 'commit',
+  RELEASE = 'release',
   DEPLOY = 'deploy',
   MAKE = 'make',
   PUSH = 'push',
   SERVE = 'serve',
+  NULL = 'null',
 }
 
 export interface ProjectExecutableArgs {
   projects: string[]
   overrides: ObjBlob<any>
   context: ExecutorContext
-  env: Env
+  options: DevExecutorSchema
 }
 
 export interface ObjBlob<T = any> {

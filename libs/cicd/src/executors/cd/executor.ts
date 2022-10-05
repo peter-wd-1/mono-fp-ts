@@ -1,15 +1,17 @@
 import { DevExecutorSchema } from './schema'
 import fuzzy from 'fuzzy'
 import { inquirer } from './inquirer'
-import { ExecutorContext, logger } from '@nrwl/devkit'
+import { ExecutorContext, logger, workspaceRoot } from '@nrwl/devkit'
 import { flow, pipe } from 'fp-ts/lib/function'
 import chalk from 'chalk'
-import * as PDE from './core/ProjectDevExecutable'
+import * as PDE from './core/ProjectExecutable'
 import * as TE from 'fp-ts/TaskEither'
 import * as T from 'fp-ts/Task'
 import * as E from 'fp-ts/Either'
 import * as A from 'fp-ts/Array'
+import * as O from 'fp-ts/Option'
 import { Env } from './types'
+import { execute, readJsonFileFP, writeJsonFileFP } from '../../generators/init/lib'
 
 const promptSourceFn = (choices: string[]) => (_: any, input: string) =>
   pipe(
@@ -32,7 +34,7 @@ export const getTargetProjects = (
           highlight: true,
           searchable: true,
           message:
-            'Select the projects you want to run on local.' +
+            'Select the projects you want execute the command on.' +
             chalk.cyan(' <space> ') +
             'to select projects' +
             '\n' +
@@ -43,19 +45,45 @@ export const getTargetProjects = (
     E.toError,
   )
 
-export const PDEpipeline = flow(PDE.of, PDE.exectableSeq)
-export const mainPipeline = (options: DevExecutorSchema, context: ExecutorContext) =>
+export const writeDeployList = (projects: string[]) =>
   pipe(
-    Object.keys(context.workspace.projects),
-    A.filter((projName) => context.workspace.projects[projName]!.projectType! === 'application'),
-    getTargetProjects,
-    // option prod ? project = getfromjson : gettargetproject
-    TE.chain(({ projects }) =>
+    writeJsonFileFP({ _path: workspaceRoot, filename: 'deploylist.json', content: projects }),
+    execute,
+  )
+
+export const readDeployList = () =>
+  pipe(
+    readJsonFileFP<Array<string>>({ _path: workspaceRoot, filename: 'deploylist.json' }),
+    execute,
+  )
+
+export const PDEpipeline = flow(PDE.of, PDE.exectableSeq)
+
+export const mainPipeline = (options: DevExecutorSchema, context: ExecutorContext) => {
+  const env: O.Option<number> = options.env === Env.PROD ? O.some(1) : O.none
+  return pipe(
+    env,
+    O.fold(
+      () =>
+        pipe(
+          Object.keys(context.workspace.projects),
+          A.filter(
+            (projName) => context.workspace.projects[projName]!.projectType! === 'application',
+          ),
+          getTargetProjects,
+          TE.map(({ projects }) => {
+            writeDeployList(projects)
+            return projects
+          }),
+        ),
+      () => pipe(readDeployList(), TE.fromEither),
+    ),
+    TE.chain((projects) =>
       PDEpipeline({
         projects,
         overrides: {},
         context,
-        env: options.env,
+        options,
       }),
     ),
     TE.fold(
@@ -73,6 +101,7 @@ export const mainPipeline = (options: DevExecutorSchema, context: ExecutorContex
       },
     ),
   )
+}
 
 /**
  * This executor runs selected projects docker-compose up and run CI watch for current project.
