@@ -1,6 +1,10 @@
 name: RFIReady CICD
 on:
-  push
+  release:
+    types: [published]
+  push:
+    branches:
+      - '*'
 
 jobs:
   CD:
@@ -27,6 +31,12 @@ jobs:
 
       - name: Install packages
         run: yarn install
+
+      - name: Get current package version
+        uses: martinbeentjes/npm-get-version-action@v1.2.3
+
+      - name: Check version
+        run: echo ${{ steps.package-version.outputs.current-version}}
 
       # - name: push docker images
       #   run: yarn nx push-deploylist cicd
