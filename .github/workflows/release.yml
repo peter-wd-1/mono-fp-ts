@@ -32,7 +32,7 @@ jobs:
         uses: reloc8/action-latest-release-version@1.0.0
 
       - name: Create Release
-        if: ${{ teps.fetch-latest-release.outputs.latest-release != steps.package-version.outputs.current-version }}
+        if: ${{ steps.fetch-latest-release.outputs.latest-release != steps.package-version.outputs.current-version }}
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
