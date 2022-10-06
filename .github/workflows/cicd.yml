@@ -12,8 +12,6 @@ jobs:
     strategy:
       matrix:
         node-version: [16.10.0]
-    env:
-      COMMIT_MSG: ${{ github.event.head_commit.message }}${{ github.event.pull_request.title }}
     steps:
       - name: Install packages
         run: sudo apt-get install -y git
@@ -49,7 +47,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Deploy
         run: |
