@@ -38,8 +38,8 @@ jobs:
       - name: Check version
         run: echo ${{ steps.package-version.outputs.current-version}}
 
-      # - name: push docker images
-      #   run: yarn nx push-deploylist cicd
+      - name: push docker images
+        run: yarn nx push-deploylist cicd
 
       # - name: ConfigureAWS
       #   uses: aws-actions/configure-aws-credentials@v1
