@@ -2,7 +2,7 @@ name: RFIReady CICD
 on:
   release:
     types: [published]
-  push:
+  marge:
     branches:
       - '*'
 
