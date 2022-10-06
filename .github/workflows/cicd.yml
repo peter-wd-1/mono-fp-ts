@@ -41,7 +41,7 @@ jobs:
 
       - name: Push docker images
         run: |
-          export TAG=${{ steps.package-version.outputs.current-version}} \
+          export TAG=${{ steps.package-version.outputs.current-version}}
           yarn nx push-deploylist cicd
 
   deploy:
