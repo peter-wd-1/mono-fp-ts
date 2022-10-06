@@ -7,7 +7,8 @@ on:
       - main
 
 jobs:
-  CD:
+  build:
+    name: Build
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -49,11 +50,22 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-
+  Deploy:
+    name: Deploy to AWS EC2
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.10.0]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
       - name: Deploy
         run: |
           aws deploy create-deployment \
           --application-name ${{ secrets.APP_NAME }} \
           --deployment-group-name ${{ secrets.DEPLOY_GROUP }} \
-          --deployment-config-name ${{ secrets.DEPLOY_CONFIG }} \
+          --deployment-config-name CodeDeployDefault.AllAtOnce \
           --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
