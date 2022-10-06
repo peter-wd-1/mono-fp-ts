@@ -20,15 +20,16 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Check version
-        run: ls
 
-      - name: Conventional Changelog Action
-        id: changelog
-        uses: TriPSs/conventional-changelog-action@v3
-        with:
-          github-token: ${{ secrets.github_token }}
-          output-file: "false"
+      # - name: Conventional Changelog Action
+      #   id: changelog
+      #   uses: TriPSs/conventional-changelog-action@v3
+      #   with:
+      #     github-token: ${{ secrets.github_token }}
+      #     output-file: "false"
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@main
 
       - name: Check version
         run: echo ${{ steps.package-version.outputs.current-version}}
