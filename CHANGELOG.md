@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/peter-wd-1/mono-fp-ts/compare/v1.6.0...v1.8.0) (2022-10-06)
+
+
+### Features
+
+* git action test ([3c60347](https://github.com/peter-wd-1/mono-fp-ts/commit/3c603476497d5f14f6a620aa3daf462b28ba6a05))
+* **new toolls:** tools available ([11842bb](https://github.com/peter-wd-1/mono-fp-ts/commit/11842bb850c28db3f6fa0e5cd9f06c003ed7b171))
+* teisng ([fca45db](https://github.com/peter-wd-1/mono-fp-ts/commit/fca45db9f93434f311596aaa72d196a0bdaae5c0))
+
 ## [1.7.0](https://github.com/peter-wd-1/mono-fp-ts/compare/v1.6.0...v1.7.0) (2022-10-06)
 
 
