@@ -42,7 +42,7 @@ jobs:
       - name: Push docker images
         if: ${{fromJson(steps.set_var.outputs.packageJson).project}}
         run: |
-          export TAG=${{ steps.package-version.outputs.current-version}}
+          export TAG=${{ steps.package-version.outputs.current-version}} \
           yarn nx push-deploylist cicd
 
   deploy:
