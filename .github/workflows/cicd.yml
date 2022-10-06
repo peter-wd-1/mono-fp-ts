@@ -2,9 +2,9 @@ name: CICD
 on:
   release:
     types: [published]
-  marge:
+  push:
     branches:
-      - '*'
+      - main
 
 jobs:
   CD:
