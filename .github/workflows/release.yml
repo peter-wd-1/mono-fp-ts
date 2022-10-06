@@ -20,18 +20,23 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Conventional Changelog Action
-        id: changelog
-        uses: TriPSs/conventional-changelog-action@v3
-        with:
-          github-token: ${{ secrets.github_token }}
-          output-file: "false"
+      # - name: Conventional Changelog Action
+      #   id: changelog
+      #   uses: TriPSs/conventional-changelog-action@v3
+      #   with:
+      #     github-token: ${{ secrets.github_token }}
+      #     output-file: "false"
+      - name: Get current package version
+        uses: martinbeentjes/npm-get-version-action@v1.2.3
+
+      - name: Check version
+        run: echo ${{ steps.package-version.outputs.current-version}}
 
       - name: Create Release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
         with:
-          tag_name: ${{ steps.changelog.outputs.tag }}
-          release_name: ${{ steps.changelog.outputs.tag }}
-          body: ${{ steps.changelog.outputs.clean_changelog }}
+          tag_name: ${{ steps.package-version.outputs.current-version}}
+          release_name: ${{ steps.package-version.outputs.current-version}}
+          body_path: CHANGELOG.md

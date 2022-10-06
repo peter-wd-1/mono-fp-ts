@@ -63,10 +63,10 @@
         "command": "yarn nx make-deploylist cicd && git add . && yarn cz"
       }
     },
-    "release": {
+    "bump": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "yarn run release && git push --follow-tags"
+        "command": "yarn run bump && git push --follow-tags"
       }
     },
     "null": {

@@ -12,8 +12,6 @@ export enum Env {
 }
 
 export enum Action {
-  COMMIT = 'commit',
-  RELEASE = 'release',
   DEPLOY = 'deploy',
   MAKE = 'make',
   PUSH = 'push',
