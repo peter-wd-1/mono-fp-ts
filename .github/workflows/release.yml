@@ -1,6 +1,6 @@
 name: Release
 on:
-  push:
+  merge:
     branches:
       - main
 
@@ -20,14 +20,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-
-      # - name: Conventional Changelog Action
-      #   id: changelog
-      #   uses: TriPSs/conventional-changelog-action@v3
-      #   with:
-      #     github-token: ${{ secrets.github_token }}
-      #     output-file: "false"
-      - name: get-npm-version
+      - name: Get project version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@main
 

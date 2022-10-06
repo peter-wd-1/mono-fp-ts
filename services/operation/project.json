@@ -6,12 +6,16 @@
   "targets": {
     "build": {
       "executor": "@nrwl/node:webpack",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/services/operation",
         "main": "services/operation/src/main.ts",
         "tsConfig": "services/operation/tsconfig.app.json",
-        "assets": ["services/operation/src/assets"]
+        "assets": [
+          "services/operation/src/assets"
+        ]
       },
       "configurations": {
         "production": {
@@ -41,14 +45,20 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["services/operation/**/*.ts"]
+        "lintFilePatterns": [
+          "services/operation/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/services/operation"],
+      "outputs": [
+        "coverage/services/operation"
+      ],
       "options": {
         "jestConfig": "services/operation/jest.config.ts",
         "passWithNoTests": true
@@ -60,20 +70,6 @@
         "main": "services/operation/src/main.ts",
         "outputPath": "dist/services/operation",
         "tsConfig": "services/operation/tsconfig.app.json"
-      }
-    },
-    "dev": {
-      "executor": "@rfiready/cicd:cd",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "env": "dev"
-      }
-    },
-    "deploy": {
-      "executor": "@rfiready/cicd:cd",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "env": "prod"
       }
     },
     "docker-dev": {
@@ -88,10 +84,10 @@
         "command": "docker compose -f services/operation/docker/docker-compose.yml build && docker-compose -f services/operation/docker/docker-compose.yml push"
       }
     },
-    "mark-deploy": {
+    "serve-deploy": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "mkdir -p tmp/deploy && cp services/operation/docker/docker-compose.yml tmp/deploy/docker-compose.operation.yml"
+        "command": "docker stack deploy --compose-file services/operation/docker/docker-compose.yml operation"
       }
     }
   },
