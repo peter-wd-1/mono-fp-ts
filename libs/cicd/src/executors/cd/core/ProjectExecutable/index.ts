@@ -32,7 +32,7 @@ export const matchCommand =
   (action: Action): O.Option<ReturnType<typeof getRunExecutorTE>> =>
     action === targetAction ? O.some(getRunExecutorTE(target)) : O.none
 
-export const getPushDeployExecutorTE = matchCommand(Action.PUSH, 'puah-deploy')
+export const getPushDeployExecutorTE = matchCommand(Action.PUSH, 'push-deploy')
 export const getServeDeployExecutorTE = matchCommand(Action.SERVE, 'serve-deploy')
 export const getDevExecutorTE = matchCommand(Action.DEV, 'docker-dev')
 export const getNullExecutorTE = getRunExecutorTE('null')

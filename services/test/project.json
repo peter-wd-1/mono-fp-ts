@@ -6,12 +6,16 @@
   "targets": {
     "build": {
       "executor": "@nrwl/node:webpack",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/services/test",
         "main": "services/test/src/main.ts",
         "tsConfig": "services/test/tsconfig.app.json",
-        "assets": ["services/test/src/assets"]
+        "assets": [
+          "services/test/src/assets"
+        ]
       },
       "configurations": {
         "production": {
@@ -40,14 +44,20 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["services/test/**/*.ts"]
+        "lintFilePatterns": [
+          "services/test/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/services/test"],
+      "outputs": [
+        "coverage/services/test"
+      ],
       "options": {
         "jestConfig": "services/test/jest.config.ts",
         "passWithNoTests": true
@@ -61,20 +71,6 @@
         "tsConfig": "services/test/tsconfig.app.json"
       }
     },
-    "dev": {
-      "executor": "@rfiready/cicd:cd",
-      "outputs": ["{options.outputPath}"],
-      "option": {
-        "env": "development"
-      }
-    },
-    "deploy": {
-      "executor": "@rfiready/cicd:cd",
-      "outputs": ["{options.outputPath}"],
-      "option": {
-        "env": "production"
-      }
-    },
     "docker-dev": {
       "executor": "nx:run-commands",
       "options": {
@@ -84,13 +80,13 @@
     "push-deploy": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "echo this is for test perpose"
+        "command": "docker compose -f services/test/docker/docker-compose.yml build && docker-compose -f services/test/docker/docker-compose.yml push"
       }
     },
-    "mark-deploy": {
+    "serve-deploy": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "mkdir -p tmp/deploy && cp services/test/docker/docker-compose.yml tmp/deploy/docker-compose.test.yml"
+        "command": "docker stack deploy --compose-file services/test/docker/docker-compose.yml test"
       }
     }
   },

@@ -8,9 +8,9 @@ services:
       args:
         NODE_ENV: prod
         SERVICE_NAME: test
-        PORT: 1234
+        PORT: 3332
     working_dir: /app
     ports:
-      - 1234:1234
+      - 3332:3332
     volumes:
       - ../../operation:/app/services/test

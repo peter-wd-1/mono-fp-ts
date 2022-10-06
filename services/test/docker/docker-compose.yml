@@ -9,7 +9,7 @@ services:
       args:
         NODE_ENV: prod
         SERVICE_NAME: test
-        PORT: 1234
+        PORT: 3332
     working_dir: /app
     deploy:
       replicas: 2
@@ -23,7 +23,7 @@ services:
         order: stop-first
         failure_action: rollback
     ports:
-      - 1234:1234
+      - 3332:3332
     networks:
       - api-service
     volumes:
