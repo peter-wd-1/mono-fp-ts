@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.14.0](https://github.com/peter-wd-1/mono-fp-ts/compare/v1.13.0...v1.14.0) (2022-10-06)
+
+
+### Features
+
+* **c:** change flow ([6562e81](https://github.com/peter-wd-1/mono-fp-ts/commit/6562e81497dc31267bc9525631a61a3faf497b61))
+* **cicd:** finito ([937e493](https://github.com/peter-wd-1/mono-fp-ts/commit/937e49368e312f6cd4fa337dbaa7f539b00c9631))
+* **cicd:** let's testou ([9c235ca](https://github.com/peter-wd-1/mono-fp-ts/commit/9c235cab99af856da8dbe238e8831e972873f296))
+* **cicd:** new tool ([75437fa](https://github.com/peter-wd-1/mono-fp-ts/commit/75437faaa07a3103dcd91132c64181e4c95b38e5))
+* **cicd:** update ([408b7f1](https://github.com/peter-wd-1/mono-fp-ts/commit/408b7f1dc5cd58d3920ae152d2a1129ebb5a3b8c))
+* **cicd:** update ([5ad8d1e](https://github.com/peter-wd-1/mono-fp-ts/commit/5ad8d1ee1db6fd94d13f5edc1c14dc3f3a8a9ea6))
+* **icdcd:** change flow ([a5c9726](https://github.com/peter-wd-1/mono-fp-ts/commit/a5c9726d72fc6efd8a07462d563393244518897d))
+* tesitng ([a44eeef](https://github.com/peter-wd-1/mono-fp-ts/commit/a44eeef4fd1c39cc3b43365cd6ca6b3b59d0d2ad))
+* testing ([e21c2ca](https://github.com/peter-wd-1/mono-fp-ts/commit/e21c2cafcc31f3d904975041cc6899333be5abdd))
+* **tool:** update ([faf3da8](https://github.com/peter-wd-1/mono-fp-ts/commit/faf3da8df880ed65132a76095f6a00db9686236d))
+* typo ([f50d712](https://github.com/peter-wd-1/mono-fp-ts/commit/f50d71204c42c88432c2b38c6115bdeeba0e446a))
+
+
+### Bug Fixes
+
+* **cicd:** change flow ([3120f3c](https://github.com/peter-wd-1/mono-fp-ts/commit/3120f3c140d62cdb0685aa3d56cf5111778b364c))
+* **cicd:** update ([b6ad13a](https://github.com/peter-wd-1/mono-fp-ts/commit/b6ad13a651b223129ca552c209097e4fe2b46e43))
+* **cicd:** update ([91e3cbc](https://github.com/peter-wd-1/mono-fp-ts/commit/91e3cbc7a717950a0a897927e5322d9d89e6ab7d))
+* **ci:** typo ([69f3129](https://github.com/peter-wd-1/mono-fp-ts/commit/69f3129923a05166b9f8238f771a7a45a4fadba7))
+* **error:** fix errro ([4f4a028](https://github.com/peter-wd-1/mono-fp-ts/commit/4f4a0287b23d01bcdaebc407e0ce4367bb1cd64b))
+
 ## [1.13.0](https://github.com/peter-wd-1/mono-fp-ts/compare/v1.11.0...v1.13.0) (2022-10-06)
 
 
