@@ -27,15 +27,6 @@ describe('ProjectDevExecutable', () => {
   })
 })
 
-describe('readwrite', () => {
-  it('read and write', () => {
-    pipe(
-      writeDeployList(['test1', 'test2', 'test3']),
-      E.map(() => console.log(readDeployList())),
-    )
-  })
-})
-
 // describe('action', () => {
 //   const action: Action = Action.DEPLOY
 //   const context = createMock<ExecutorContext>({})
