@@ -1,4 +1,4 @@
-name: RFIReady CICD
+name: CICD
 on:
   release:
     types: [published]
