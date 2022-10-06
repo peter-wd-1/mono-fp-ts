@@ -52,7 +52,7 @@ jobs:
       - name: Deploy
         run: |
           aws deploy create-deployment \
-          --application-name ${{ env.APP_NAME }} \
-          --deployment-group-name ${{ env.DEPLOY_GROUP }} \
-          --deployment-config-name ${{ env.DEPLOY_CONFIG }} \
+          --application-name monorepo \
+          --deployment-group-name prod \
+          --deployment-config-name CodeDeployDefault.AllAtOnce \
           --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
