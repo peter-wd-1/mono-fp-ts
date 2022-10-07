@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.19.0](https://github.com/peter-wd-1/mono-fp-ts/compare/v1.18.0...v1.19.0) (2022-10-07)
+
+
+### Features
+
+* **wfjeio:** jew ([17736bd](https://github.com/peter-wd-1/mono-fp-ts/commit/17736bdef77396c54ee3ef9a71c624abe63fe416))
+
 ## [1.18.0](https://github.com/peter-wd-1/mono-fp-ts/compare/v1.17.1...v1.18.0) (2022-10-07)
 
 
