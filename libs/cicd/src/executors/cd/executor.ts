@@ -49,14 +49,18 @@ export const getTargetProjects =
 
 export const writeDeployList = (projects: string[]) =>
   pipe(
-    writeJsonFileFP({ _path: workspaceRoot, filename: 'deploylist.json', content: projects }),
+    writeJsonFileFP({ _path: workspaceRoot, filename: 'deploylist.json', content: { projects } }),
     execute,
   )
 
 export const readDeployList = () =>
   pipe(
-    readJsonFileFP<Array<string>>({ _path: workspaceRoot, filename: 'deploylist.json' }),
+    readJsonFileFP<{ projects: Array<string> }>({
+      _path: workspaceRoot,
+      filename: 'deploylist.json',
+    }),
     execute,
+    E.map((i) => i.projects),
   )
 
 export const PDEpipeline = flow(PDE.of, PDE.exectableSeq)
