@@ -21,6 +21,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: actions/checkout@v3
+        run: |
+          [[ -f bumped ]] || exit 1
+
       - name: Create dummy file for cache.
         run: touch cache
 
@@ -34,73 +38,65 @@ jobs:
       - name: Cache hit
         run: echo ${{ steps.cache.outputs.cache-hit }}
 
-  #     - name: Install cli packages
-  #       run: sudo apt-get install -y git
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
-  #     - uses: actions/checkout@v3
-  #     - name: Use Node.js ${{ matrix.node-version }}
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: ${{ matrix.node-version }}
+      - name: Install npm packages
+        run: yarn install
 
-  #     - uses: actions/cache@v2
-  #       with:
-  #         path: '**/node_modules'
-  #         key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Get project version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@main
 
-  #     - name: Install npm packages
-  #       run: yarn install
+      - name: Check version
+        run: |
+          echo ${{ steps.package-version.outputs.current-version}}
 
-  #     - name: Get project version
-  #       id: package-version
-  #       uses: martinbeentjes/npm-get-version-action@main
+      - name: Push docker images
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        run: |
+          export TAG=${{ steps.package-version.outputs.current-version}}
+          yarn nx push-deploylist cicd
 
-  #     - name: Check version
-  #       run: |
-  #         echo ${{ steps.package-version.outputs.current-version}}
+  deploy:
+    name: Deploy to AWS EC2
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      matrix:
+        node-version: [16.10.0]
+    steps:
+      - name: Install cli packages
+        run: sudo apt-get install -y git
 
-  #     - name: Push docker images
-  #       run: |
-  #         export TAG=${{ steps.package-version.outputs.current-version}}
-  #         yarn nx push-deploylist cicd
+      - uses: actions/checkout@v3
 
-  # deploy:
-  #   name: Deploy to AWS EC2
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   strategy:
-  #     matrix:
-  #       node-version: [16.10.0]
-  #   steps:
-  #     - name: Install cli packages
-  #       run: sudo apt-get install -y git
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
 
-  #     - uses: actions/checkout@v3
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
-  #     - name: Use Node.js ${{ matrix.node-version }}
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: ${{ matrix.node-version }}
+      - name: Install npm packages
+        run: yarn install
 
-  #     - uses: actions/cache@v2
-  #       with:
-  #         path: '**/node_modules'
-  #         key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: ConfigureAWS
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
-  #     - name: Install npm packages
-  #       run: yarn install
-
-  #     - name: ConfigureAWS
-  #       uses: aws-actions/configure-aws-credentials@v1
-  #       with:
-  #         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  #         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  #         aws-region: ${{ secrets.AWS_REGION }}
-
-  #     - name: Deploy
-  #       run: |
-  #         aws deploy create-deployment \
-  #         --application-name ${{ secrets.APP_NAME }} \
-  #         --deployment-group-name ${{ secrets.DEPLOY_GROUP }} \
-  #         --deployment-config-name CodeDeployDefault.AllAtOnce \
-  #         --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
+      - name: Deploy
+        run: |
+          aws deploy create-deployment \
+          --application-name ${{ secrets.APP_NAME }} \
+          --deployment-group-name ${{ secrets.DEPLOY_GROUP }} \
+          --deployment-config-name CodeDeployDefault.AllAtOnce \
+          --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
