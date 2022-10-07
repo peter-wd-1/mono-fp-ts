@@ -1,0 +1,14 @@
+#!/bin/sh
+
+RED='\033[0;31m'
+HL='\033[0;33m'
+NC='\033[0m'
+BG='\033[1;42m'
+if ! head -1 "$1" | grep -qE "^(feat|fix|ci|chore|docs|test|style|refactor|perf|build|revert)(\(.+?\))?: .{1,}$"; then
+    echo "${RED}ERROR : Aborting commit. Your commit message is invalid.${NC}\n${RED}Use 'yarn cz' or 'git-cz' to commit${NC}\n\n\n\n " >&2
+    exit 1
+fi
+if ! head -1 "$1" | grep -qE "^.{1,88}$"; then
+    echo "${RED}Aborting commit. Your commit message is too long.${NC}\n\n\n\n\n" >&2
+    exit 1
+fi

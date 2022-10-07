@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+GREEN='\033[0;32m'
+HL='\033[0;33m'
+NC='\033[0m'
+BG='\033[1;42m'
+yarn nx affected:lint
+yarn nx affected:test
+if [ ! $(ps aux | grep -v 'grep'| grep 'affected:graph') ]; then
+    yarn nx affected:graph --all &
+else
+    echo "\n\n\n ${BG}$(tput setaf 0) RFIREADY ${NC} ${GREEN}Check Project graph started at ${HL}http://127.0.0.1:4211${NC}\n\n\n"
+fi
