@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.23.0](https://github.com/peter-wd-1/mono-fp-ts/compare/v1.22.0...v1.23.0) (2022-10-07)
+
+
+### Features
+
+* **service:** created new service ([11f19e8](https://github.com/peter-wd-1/mono-fp-ts/commit/11f19e8ddcd4f14051f684256e0c71cb25ae1e86))
+* testin ([380d741](https://github.com/peter-wd-1/mono-fp-ts/commit/380d741aa73cacd71599f2d2ecc0ed235e7378d0))
+
 ## [1.22.0](https://github.com/peter-wd-1/mono-fp-ts/compare/v1.21.0...v1.22.0) (2022-10-07)
 
 
