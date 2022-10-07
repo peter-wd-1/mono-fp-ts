@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.22.0](https://github.com/peter-wd-1/mono-fp-ts/compare/v1.21.0...v1.22.0) (2022-10-07)
+
+
+### Features
+
+* **tesitng:** tinge ([ac24aef](https://github.com/peter-wd-1/mono-fp-ts/commit/ac24aef43a6ca2ea55299e56822afeef27fafe07))
+
 ## [1.21.0](https://github.com/peter-wd-1/mono-fp-ts/compare/v1.20.0...v1.21.0) (2022-10-07)
 
 
