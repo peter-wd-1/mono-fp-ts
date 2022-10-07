@@ -12,11 +12,17 @@ jobs:
       matrix:
         node-version: [16.10.0]
     steps:
-      - name: Create dummy file for cache.
-        run: touch cache
+      - name: Install cli packages
+        run: sudo apt-get install -y git
+
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
 
       - name: Create dummy file for cache.
-        run: ls -al
+        run: touch cache
 
       - name: Cache
         id: cache
