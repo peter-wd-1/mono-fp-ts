@@ -17,6 +17,9 @@ jobs:
       - name: Create dummy file for cache.
         run: touch cache
 
+      - name: Create dummy file for cache.
+        run: ls -al
+
       - name: Cache
         id: cache
         uses: actions/cache@v2
