@@ -1,0 +1,94 @@
+{
+  "root": "services/test1",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "services/test1/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/services/test1",
+        "main": "services/test1/src/main.ts",
+        "tsConfig": "services/test1/tsconfig.app.json",
+        "assets": [
+          "services/test1/src/assets"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "services/test1/src/environments/environment.ts",
+              "with": "services/test1/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:node",
+      "options": {
+        "buildTarget": "test1:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "test1:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "services/test1/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/services/test1"
+      ],
+      "options": {
+        "jestConfig": "services/test1/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "type-check": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "main": "services/test1/src/main.ts",
+        "outputPath": "dist/services/test1",
+        "tsConfig": "services/test1/tsconfig.app.json"
+      }
+    },
+    "docker-dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker compose -f services/test1/docker/docker-compose.dev.yml up -d"
+      }
+    },
+    "push-deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker compose -f services/test1/docker/docker-compose.yml build && docker-compose -f services/test1/docker/docker-compose.yml push"
+      }
+    },
+    "serve-deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker stack deploy --compose-file services/test1/docker/docker-compose.yml test1"
+      }
+    }
+  },
+  "tags": []
+}
