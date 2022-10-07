@@ -3,10 +3,29 @@ import { IOETry } from '../types'
 import { Lazy, pipe } from 'fp-ts/lib/function'
 import * as IOEither from 'fp-ts/IOEither'
 import * as E from 'fp-ts/Either'
+import * as TE from 'fp-ts/TaskEither'
 import * as A from 'fp-ts/Array'
 import path from 'path'
 import { Eq } from 'fp-ts/lib/Eq'
 import { NonEmptyArray } from 'fp-ts/lib/NonEmptyArray'
+
+export const run = <A>(eff: TE.TaskEither<Error, A>): void => {
+  eff()
+    .then(
+      E.fold(
+        (e) => {
+          throw e
+        },
+        (_) => {
+          process.exitCode = 0
+        },
+      ),
+    )
+    .catch((e) => {
+      console.error(e)
+      process.exitCode = 1
+    })
+}
 
 export const execute = <T>(f: () => T): T => f()
 
