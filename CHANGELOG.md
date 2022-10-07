@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.20.0](https://github.com/peter-wd-1/mono-fp-ts/compare/v1.19.0...v1.20.0) (2022-10-07)
+
+
+### Features
+
+* **typo:** typo ([1fe9947](https://github.com/peter-wd-1/mono-fp-ts/commit/1fe9947abe39009d6aa3a9af503306da7fa05efe))
+
 ## [1.19.0](https://github.com/peter-wd-1/mono-fp-ts/compare/v1.18.0...v1.19.0) (2022-10-07)
 
 
