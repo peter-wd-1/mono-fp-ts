@@ -4,8 +4,6 @@
   "projects": {
     "cicd": "libs/cicd",
     "operation": "services/operation",
-    "test": "services/test",
-    "test1": "services/test1",
     "utils": "libs/utils"
   }
 }
