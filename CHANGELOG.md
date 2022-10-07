@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.15.0](https://github.com/peter-wd-1/mono-fp-ts/compare/v1.14.1...v1.15.0) (2022-10-07)
+
+
+### Features
+
+* **cicd:** tesitng ([e37f1cc](https://github.com/peter-wd-1/mono-fp-ts/commit/e37f1ccd69b2294e9fb9beb90473c8faf4c26661))
+* **cicd:** test ([31dd0cb](https://github.com/peter-wd-1/mono-fp-ts/commit/31dd0cb9332ab0461f281b20264874d886a8db4b))
+* **cicd:** testing ([9f46f37](https://github.com/peter-wd-1/mono-fp-ts/commit/9f46f373a7faf8c62a5a133536f5d0bff3a0214f))
+* **cicd:** update bin script ([40403e3](https://github.com/peter-wd-1/mono-fp-ts/commit/40403e3c45fea4e5bdfea5c66fc2e86e070ef140))
+* tesitng ([9c9aab4](https://github.com/peter-wd-1/mono-fp-ts/commit/9c9aab41753e7d0b207c01f4bd305df1982eba68))
+
+
+### Bug Fixes
+
+* **cicd:** testing ([317b78c](https://github.com/peter-wd-1/mono-fp-ts/commit/317b78c96e2ea3a9e01a588eff9fbc6404d47064))
+
 ### [1.14.1](https://github.com/peter-wd-1/mono-fp-ts/compare/v1.14.0...v1.14.1) (2022-10-06)
 
 ## [1.14.0](https://github.com/peter-wd-1/mono-fp-ts/compare/v1.13.0...v1.14.0) (2022-10-06)
