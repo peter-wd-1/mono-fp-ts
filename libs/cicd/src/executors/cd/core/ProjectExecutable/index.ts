@@ -14,9 +14,6 @@ import * as O from 'fp-ts/Option'
 import * as R from 'fp-ts/Reader'
 import * as RA from 'fp-ts/ReadonlyArray'
 
-// type GetRunExecutorTE = (target:string) => (overrides : ObjBlob<any>, context: ExecutorContext) =>
-//   (project :string) => TE.TaskEither<Error>>
-//
 // TODO exeperimental feature tool
 // export const Applicative: Applicative1<O.URI> = {
 //   URI: O.URI,
