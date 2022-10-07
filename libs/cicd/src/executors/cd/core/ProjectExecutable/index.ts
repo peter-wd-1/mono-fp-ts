@@ -1,5 +1,11 @@
 import { ExecutorContext, runExecutor } from '@nrwl/devkit'
-import { Action, Env, ObjBlob, ProjectExecutable, ProjectExecutableArgs } from '../../types'
+import {
+  Action,
+  ExecutionEnv,
+  ObjBlob,
+  ProjectExecutable,
+  ProjectExecutableArgs,
+} from '../../types'
 import { pipe } from 'fp-ts/lib/function'
 import * as A from 'fp-ts/Array'
 import * as TE from 'fp-ts/TaskEither'

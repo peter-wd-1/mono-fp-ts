@@ -10,7 +10,7 @@ import * as T from 'fp-ts/Task'
 import * as E from 'fp-ts/Either'
 import * as A from 'fp-ts/Array'
 import * as O from 'fp-ts/Option'
-import { Action, Env } from './types'
+import { Action, ExecutionEnv } from './types'
 import { execute, readJsonFileFP, writeJsonFileFP } from '../../generators/init/lib'
 
 const promptSourceFn = (choices: string[]) => (_: any, input: string) =>
@@ -66,7 +66,7 @@ export const readDeployList = () =>
 export const PDEpipeline = flow(PDE.of, PDE.exectableSeq)
 
 export const mainPipeline = (options: DevExecutorSchema, context: ExecutorContext) => {
-  const env: O.Option<number> = options.env === Env.PROD ? O.some(1) : O.none
+  const env: O.Option<number> = options.env === ExecutionEnv.PROD ? O.some(1) : O.none
   return pipe(
     env,
     O.fold(
@@ -84,6 +84,7 @@ export const mainPipeline = (options: DevExecutorSchema, context: ExecutorContex
         ),
       () => pipe(readDeployList(), TE.fromEither),
     ),
+    // if its for deploy commit. it should have projects arrays available and also should not prod evn
     TE.chain((projects) =>
       PDEpipeline({
         projects,

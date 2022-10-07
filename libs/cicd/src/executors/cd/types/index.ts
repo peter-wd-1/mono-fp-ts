@@ -6,8 +6,8 @@ export interface ProjectExecutable {
   executables: ReadonlyArray<TaskEither<Error, Awaited<ReturnType<typeof runExecutor>>>>
 }
 
-export enum Env {
-  DEV = 'dev',
+export enum ExecutionEnv {
+  LOCAL = 'dev',
   PROD = 'prod',
 }
 

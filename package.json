@@ -5,12 +5,10 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "echo change",
     "prepare": "husky install",
     "create-lib": "sh -c 'yarn nx g @nrwl/node:library ${0} && yarn nx g @rfiready/cicd:init ${0}' --service='' --port=''",
     "create-service": "sh -c 'yarn nx g @nrwl/express:application ${0} && yarn nx g @rfiready/cicd:init ${0}'",
-    "remove-project": "sh -c 'yarn nx g remove ${0}'",
-    "bump": "standard-version"
+    "remove-project": "sh -c 'yarn nx g remove ${0}'"
   },
   "private": true,
   "dependencies": {
