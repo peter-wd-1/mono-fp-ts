@@ -21,9 +21,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Check if released from local
+      - name: Error if there is no deploylist
         run: |
-          [[ -f bumped ]] || exit 1
+          [[ -f deploylist.json ]] || exit 1
 
       - name: Create dummy file for cache.
         run: touch cache

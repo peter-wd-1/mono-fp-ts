@@ -66,13 +66,7 @@
     "release": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "standard-version && touch bumped && git push --follow-tags && rm bumped"
-      }
-    },
-    "releasetest": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "touch bumped"
+        "command": "standard-version && git push --follow-tags"
       }
     },
     "null": {
@@ -83,7 +77,6 @@
     },
     "dev": {
       "executor": "@rfiready/cicd:cd",
-      "outputs": ["{options.outputPath}"],
       "options": {
         "env": "dev",
         "action": "dev"
@@ -91,7 +84,6 @@
     },
     "deploy-local": {
       "executor": "@rfiready/cicd:cd",
-      "outputs": ["{options.outputPath}"],
       "options": {
         "env": "dev",
         "action": "deploy"
@@ -99,7 +91,6 @@
     },
     "deploy": {
       "executor": "@rfiready/cicd:cd",
-      "outputs": ["{options.outputPath}"],
       "options": {
         "env": "prod",
         "action": "deploy"
@@ -107,7 +98,6 @@
     },
     "make-deploylist": {
       "executor": "@rfiready/cicd:cd",
-      "outputs": ["{options.outputPath}"],
       "options": {
         "env": "dev",
         "action": "make"
@@ -115,7 +105,6 @@
     },
     "push-deploylist": {
       "executor": "@rfiready/cicd:cd",
-      "outputs": ["{options.outputPath}"],
       "options": {
         "env": "prod",
         "action": "push"
@@ -123,7 +112,6 @@
     },
     "serve-deploylist": {
       "executor": "@rfiready/cicd:cd",
-      "outputs": ["{options.outputPath}"],
       "options": {
         "env": "prod",
         "action": "serve"
